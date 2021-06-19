@@ -4,15 +4,12 @@ import java.io.FileWriter;
 import java.util.*;
 
 public class Main {
-
+    static Scanner sc;
     static List<User> users;
     static List<Application> applications;
     static List<Company> companies;
 
     static void addCompany(int userid){
-
-        Scanner sc = new Scanner(System.in);
-        sc.next();
         System.out.print("Name : ");
         String name = sc.nextLine();
         System.out.print("Description : ");
@@ -22,7 +19,7 @@ public class Main {
         System.out.print("Phone : ");
         String phone =sc.nextLine();
         companies.add(new Company(name, des, email, phone, userid));
-        sc.close();
+        
     }
 
     static void deleteCompany(List<Company> companies){
@@ -46,10 +43,10 @@ public class Main {
     static void companyMenu(int userId) throws Exception{
         System.out.println("1. Add\n2. Edit\n3. Delete\n4. View Applications\n5. Previous Menu\n6. Main Menu\n");
         System.out.print("\nEnter Option : ");
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
+        
+        int choice = Integer.parseInt(sc.nextLine());
         System.out.println(choice);
-        sc.close();
+        
         switch(choice){
             case 1:
                 addCompany(userId);
@@ -69,10 +66,10 @@ public class Main {
     static void userOptions() throws Exception{
         System.out.println("1. Add\n2.Delete\n3.Previous Menu\n4. Main Menu\n");
         System.out.print("\nEnter Option : ");
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
+        
+        int choice = Integer.parseInt(sc.nextLine());
         System.out.println(choice);
-        sc.close();
+        
         switch(choice){
             case 1:
                 addUser();
@@ -87,7 +84,7 @@ public class Main {
                 break;
         }
     }
-    static void deletUser(){
+    static void deleteUser(){
         System.out.println("\nID\tUsername\tEmail\tAddress\tPhone");
         if(users.size()==0){
         System.out.println("No User Found!");
@@ -97,7 +94,7 @@ public class Main {
                 System.out.printf("%d\t%s\t%s\t%s\n", i,u.getUsername(),u.getEmail(),u.getAddress(),u.getPhone());
                 i++;
             }
-            Scanner sc = new Scanner(System.in);
+            
             System.out.println("Enter id to delete : ");
             users.remove(sc.nextInt());
 
@@ -105,7 +102,7 @@ public class Main {
     }
     static void addUser(){
 
-        Scanner sc = new Scanner(System.in);
+        
         System.out.println("---- Add User ----\n");
         System.out.print("Username : ");
         String username = sc.nextLine().trim();
@@ -118,11 +115,11 @@ public class Main {
         System.out.print("Phone : ");
         String phone = sc.nextLine().trim();
         users.add(new User(username,pass,email,add,phone));
-        sc.close();
+        
     }
     static void adminMenu()throws Exception{
 
-        Scanner sc = new Scanner(System.in);
+        
         System.out.println("Admin Menu");
 
         File file = new File("db.txt");
@@ -147,11 +144,11 @@ public class Main {
             System.out.println("Login Success!\n");
             System.out.println("1.Users\n2.Companies\n3.Applications\4.Main Menu\n\n");
             System.out.print("Enter Option : ");
-            int op = sc.nextInt();
-            sc.close();
+            int op = Integer.parseInt(sc.nextLine());
+            
             switch(op){
                 case 1:
-                    System.out.println("\nID\tUsername\tEmail\tAddress\tPhone");
+                    System.out.println("\nID\tUsername\tEmail\tAddress\tPhone\n");
                     if(users.size()==0){
                         System.out.println("No User Found!");
                     }else{
@@ -159,9 +156,10 @@ public class Main {
                             System.out.printf("%d\t%s\t%s\t%s\n", u.getId(),u.getUsername(),u.getEmail(),u.getAddress(),u.getPhone());
                         }
                     }
+                    userOptions();
                     break;
                 case 2:
-                    System.out.println("\nID\tName\tDescription\tEmail\tPhone\\n");
+                    System.out.println("\nID\tName\tDescription\tEmail\tPhone\n");
                     if(users.size()==0){
                         System.out.println("No Company Found!");
                     }else{
@@ -194,9 +192,9 @@ public class Main {
         System.out.println("User Menu");
     }
     static void mainMenu() throws Exception{
-        Scanner sc = new Scanner(System.in);
+        
         System.out.println("\n ------ Main Menu ---------\n1.Admin\n2.User\n3.Exit\n");
-        int choice = sc.nextInt();
+        int choice = Integer.parseInt(sc.nextLine());
         switch (choice) {
             case 1:
                 adminMenu();
@@ -211,13 +209,14 @@ public class Main {
             default:
                 System.out.println("\n\n------ Invalid Input ------------ \n\n");
         }
-        sc.close();
+        
     }
     public static void main(String[] args) throws Exception{
 
         users = new ArrayList<>();
         companies = new ArrayList<>();
         applications = new ArrayList<>();
+        sc = new Scanner(System.in);
         mainMenu();
     }
 }
