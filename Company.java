@@ -7,8 +7,7 @@ public class Company {
     private String email;
     private String phone;
     private int userid;
-
-    
+ 
     public Company(String name, String descp, String email, String phone, int userid) {
         this.name = name;
         this.descp = descp;

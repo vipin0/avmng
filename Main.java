@@ -5,8 +5,21 @@ import java.util.*;
 
 public class Main {
 
-    static void addCompany(List<Company> companies){
+    static void addCompany(List<Company> companies, int userid){
 
+        Scanner sc = new Scanner(System.in);
+        sc.next();
+        System.out.print("Name : ");
+        String name = sc.nextLine();
+        System.out.print("Description : ");
+        String des = sc.nextLine();
+        System.out.print("Email : ");
+        String email = sc.nextLine();
+        System.out.print("Phone : ");
+        String phone =sc.nextLine();
+        companies.add(new Company(name, des, email, phone, userid));
+
+        sc.close();
     }
 
     static void deleteCompany(List<Company> companies){
@@ -27,15 +40,16 @@ public class Main {
 
     }
 
-    static void companyMenu(List<User> users,List<Company> companies, List<Application> applications) throws Exception{
+    static void companyMenu(List<User> users,List<Company> companies, List<Application> applications, int userId) throws Exception{
         System.out.println("1. Add\n2. Edit\n3. Delete\n4. View Applications\n5. Previous Menu\n6. Main Menu\n");
         System.out.print("\nEnter Option : ");
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
+        System.out.println(choice);
         sc.close();
         switch(choice){
             case 1:
-                addCompany(companies);
+                addCompany(companies,userId);
                 break;
             case 2:
                 editCompany(companies);
@@ -94,6 +108,7 @@ public class Main {
             System.out.println("1.Users\n2.Companies\n3.Applications\4.Main Menu\n\n");
             System.out.print("Enter Option : ");
             int op = sc.nextInt();
+            sc.close();
             switch(op){
                 case 1:
                     System.out.println("\nID\tUsername\tEmail\tAddress\tPhone");
@@ -115,7 +130,7 @@ public class Main {
                             System.out.printf("%d\t%s\t%s\t%s\t%s\n",c.getId(),c.getName(),c.getDescp(),c.getEmail(),c.getEmail());
                         }
                     }
-                    companyMenu(users,companies,applications);
+                    companyMenu(users,companies,applications,0);
                     break;
                 case 3:
                     System.out.println("\nID\tName\tDescription\tOwner\tCategory\n");
