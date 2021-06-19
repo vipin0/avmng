@@ -22,21 +22,31 @@ public class Main {
         
     }
 
-    static void deleteCompany(List<Company> companies){
+    static void deleteCompany(){
+        System.out.println("\nID\tName\tDescription\tEmail\tPhone\n");
+                    if(users.size()==0){
+                        System.out.println("No Company Found!");
+                    }else{
+                        int i=0;
+                        for(Company c:companies){
+                            System.out.printf("%d\t%s\t%s\t%s\t%s\n",i++,c.getName(),c.getDescp(),c.getEmail(),c.getEmail());
+                        }
+                        System.out.println("Enter id to delete : ");
+                        companies.remove(Integer.parseInt(sc.nextLine()));
+                    }
+    }
+    static void editCompany(){
+        
+    }
+
+    static void addApplication(){
 
     }
-    static void editCompany(List<Company> companies){
+
+    static void deleteApplication(){
 
     }
-
-    static void addApplication(List<Application> applications){
-
-    }
-
-    static void deleteApplication(List<Application> applications){
-
-    }
-    static void editApplication(List<Application> applications){
+    static void editApplication(){
 
     }
 
@@ -52,10 +62,10 @@ public class Main {
                 addCompany(userId);
                 break;
             case 2:
-                editCompany(companies);
+                editCompany();
                 break;
             case 3:
-                deleteCompany(companies);
+                deleteCompany();
             case 4:
                 return;
             case 5:
