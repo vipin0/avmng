@@ -5,7 +5,11 @@ import java.util.*;
 
 public class Main {
 
-    static void addCompany(List<Company> companies, int userid){
+    static List<User> users;
+    static List<Application> applications;
+    static List<Company> companies;
+
+    static void addCompany(int userid){
 
         Scanner sc = new Scanner(System.in);
         sc.next();
@@ -18,7 +22,6 @@ public class Main {
         System.out.print("Phone : ");
         String phone =sc.nextLine();
         companies.add(new Company(name, des, email, phone, userid));
-
         sc.close();
     }
 
@@ -40,7 +43,7 @@ public class Main {
 
     }
 
-    static void companyMenu(List<User> users,List<Company> companies, List<Application> applications, int userId) throws Exception{
+    static void companyMenu(int userId) throws Exception{
         System.out.println("1. Add\n2. Edit\n3. Delete\n4. View Applications\n5. Previous Menu\n6. Main Menu\n");
         System.out.print("\nEnter Option : ");
         Scanner sc = new Scanner(System.in);
@@ -49,7 +52,7 @@ public class Main {
         sc.close();
         switch(choice){
             case 1:
-                addCompany(companies,userId);
+                addCompany(userId);
                 break;
             case 2:
                 editCompany(companies);
@@ -59,11 +62,48 @@ public class Main {
             case 4:
                 return;
             case 5:
-                mainMenu(users, companies, applications);
+                mainMenu();
                 break;
         }
     }
-    static void addUser(List<User> users){
+    static void userOptions() throws Exception{
+        System.out.println("1. Add\n2.Delete\n3.Previous Menu\n4. Main Menu\n");
+        System.out.print("\nEnter Option : ");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        System.out.println(choice);
+        sc.close();
+        switch(choice){
+            case 1:
+                addUser();
+                break;
+            case 2:
+                deleteUser();
+                break;
+            case 3:
+                return;
+            case 4:
+                mainMenu();
+                break;
+        }
+    }
+    static void deletUser(){
+        System.out.println("\nID\tUsername\tEmail\tAddress\tPhone");
+        if(users.size()==0){
+        System.out.println("No User Found!");
+        }else{
+            int i=0;
+            for(User u:users){
+                System.out.printf("%d\t%s\t%s\t%s\n", i,u.getUsername(),u.getEmail(),u.getAddress(),u.getPhone());
+                i++;
+            }
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter id to delete : ");
+            users.remove(sc.nextInt());
+
+        }
+    }
+    static void addUser(){
 
         Scanner sc = new Scanner(System.in);
         System.out.println("---- Add User ----\n");
@@ -80,7 +120,7 @@ public class Main {
         users.add(new User(username,pass,email,add,phone));
         sc.close();
     }
-    static void adminMenu(List<User> users,List<Company> companies, List<Application> applications)throws Exception{
+    static void adminMenu()throws Exception{
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Admin Menu");
@@ -119,7 +159,6 @@ public class Main {
                             System.out.printf("%d\t%s\t%s\t%s\n", u.getId(),u.getUsername(),u.getEmail(),u.getAddress(),u.getPhone());
                         }
                     }
-                    
                     break;
                 case 2:
                     System.out.println("\nID\tName\tDescription\tEmail\tPhone\\n");
@@ -130,7 +169,7 @@ public class Main {
                             System.out.printf("%d\t%s\t%s\t%s\t%s\n",c.getId(),c.getName(),c.getDescp(),c.getEmail(),c.getEmail());
                         }
                     }
-                    companyMenu(users,companies,applications,0);
+                    companyMenu(0);
                     break;
                 case 3:
                     System.out.println("\nID\tName\tDescription\tOwner\tCategory\n");
@@ -143,24 +182,24 @@ public class Main {
                     }
                     break;
                 case 4:
-                    mainMenu(users,companies,applications);
+                    mainMenu();
                     break;   
             }
         }else{
             System.out.println("\nInvalid Credentials \n");
-            mainMenu(users,companies,applications);
+            mainMenu();
         }
     }
     static void userMenu(){
         System.out.println("User Menu");
     }
-    static void mainMenu(List<User> users,List<Company> companies, List<Application> applications) throws Exception{
+    static void mainMenu() throws Exception{
         Scanner sc = new Scanner(System.in);
         System.out.println("\n ------ Main Menu ---------\n1.Admin\n2.User\n3.Exit\n");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                adminMenu(users,companies,applications);
+                adminMenu();
                 break;
             
             case 2:
@@ -176,9 +215,9 @@ public class Main {
     }
     public static void main(String[] args) throws Exception{
 
-        List<User> users = new ArrayList<>();
-        List<Company> companies = new ArrayList<>();
-        List<Application> applications = new ArrayList<>();
-        mainMenu(users,companies,applications);
+        users = new ArrayList<>();
+        companies = new ArrayList<>();
+        applications = new ArrayList<>();
+        mainMenu();
     }
 }
